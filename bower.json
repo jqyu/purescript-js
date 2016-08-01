@@ -1,0 +1,19 @@
+{
+  "name": "purescript-js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output",
+    "src/**/*.es"
+  ],
+  "dependencies": {
+    "purescript-maybe": "^1.0.0",
+    "purescript-quickcheck": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-console": "^1.0.0",
+    "purescript-psci-support": "^1.0.0",
+    "purescript-test-unit": "^7.0.1"
+  }
+}
