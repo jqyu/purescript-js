@@ -6,7 +6,7 @@ module JS.Control.Promise
   , all
   , race
   , delay
-  , runPromise
+  , run
   ) where
 
 import Control.Alt (class Alt)
@@ -16,6 +16,7 @@ import Control.Applicative (class Applicative)
 import Control.Bind (class Bind)
 import Control.Monad (class Monad)
 import Control.Monad.Aff (Aff, Canceler, nonCanceler)
+import Control.Monad.Eff.Exception (Error, error)
 import Control.Monad.Cont.Class (class MonadCont)
 import Control.Monad.Error.Class (class MonadError)
 import Control.Monad.Rec.Class (class MonadRec)
@@ -30,21 +31,21 @@ import Data.Semigroup (class Semigroup, append)
 import Data.Unit (Unit)
 
 -- | The `Promise` type constructor is used to represent native promises for pure values.
--- For async effects, refer to the Contextual Promise monad.
+-- | To do anything useful, you probably want to use Promise.Env
 
 foreign import data Promise :: * -> *
 foreign import data PROMISE :: !
 
 foreign import resolve :: forall a. a -> Promise a
-foreign import reject :: forall a b. b -> Promise a
+foreign import reject :: forall a. Error -> Promise a
 foreign import all :: forall a. Array (Promise a) -> Promise (Array a)
 foreign import race :: forall a. Array (Promise a) -> Promise a
 foreign import delay :: Number -> Promise Unit
 
-foreign import _runPromise :: forall e a. Canceler e -> Promise a -> Aff ( promise :: PROMISE | e ) a
+foreign import _run :: forall e a. Canceler e -> Promise a -> Aff ( promise :: PROMISE | e ) a
 
-runPromise :: forall e a. Promise a -> Aff ( promise :: PROMISE | e ) a
-runPromise = _runPromise nonCanceler
+run :: forall e a. Promise a -> Aff ( promise :: PROMISE | e ) a
+run = _run nonCanceler
 
 
 -- | Semigroup (<>)
@@ -86,7 +87,7 @@ instance altPromise :: Alt Promise where
 -- | Plus (Alt and empty)
 
 instance plusPromise :: Plus Promise where
-  empty = reject "empty promise"
+  empty = reject (error "empty promise")
 
 -- | Alternative (Applicative and Plus)
 
@@ -117,13 +118,13 @@ instance monadRecPromise :: MonadRec Promise where
 
 -- | Allows users to catch and throw errors
 
-foreign import _catch :: forall err a. Promise a -> (err -> Promise a) -> Promise a
+foreign import _catch :: forall a. Promise a -> (Error -> Promise a) -> Promise a
 
-instance monadErrorPromise :: MonadError err Promise where
-  throwError e = reject e
+instance monadErrorPromise :: MonadError Error Promise where
+  throwError = reject
   catchError = _catch
 
--- | Allows to call with a continuation
+-- | Allows a call with continuation
 
 foreign import _callCC :: forall a b. ((a -> Promise b) -> Promise a) -> Promise a
 

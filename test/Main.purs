@@ -7,8 +7,10 @@ import Control.Monad.Eff.Console (CONSOLE, log)
 import Test.Unit.Main
 
 import Test.JS.Control.Promise (promiseSuite)
+import Test.JS.Control.Promise.Env (promiseEnvSuite)
 import Test.JS.Data.Nullable (nullableSuite)
 
 main = runTest do
-  promiseSuite
   nullableSuite
+  promiseSuite
+  promiseEnvSuite

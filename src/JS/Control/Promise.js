@@ -12,7 +12,7 @@ exports.delay = function (n) {
   });
 };
 
-exports._runPromise = function (nonCanceler) {
+exports._run = function (nonCanceler) {
   return function (p) {
     return function (success, error) {
       return p.then(success).catch(error), nonCanceler;

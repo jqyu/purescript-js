@@ -4,7 +4,7 @@ exports.all = Promise.all.bind(Promise)
 exports.race = Promise.race.bind(Promise)
 exports.delay = n => new Promise((resolve) => setTimeout(resolve, n))
 
-exports._runPromise = nonCanceler => p =>
+exports._run = nonCanceler => p =>
   (success, error) =>
     ( p.then(success).catch(error)
     , nonCanceler
