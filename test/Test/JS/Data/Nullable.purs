@@ -1,8 +1,6 @@
 module Test.JS.Data.Nullable where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
 import Data.Maybe
 import Test.Unit
 import Test.Unit.Assert as Assert
@@ -24,14 +22,4 @@ nullableSuite = suite "JS.Data.Nullable" do
       Assert.equal (Nullable.toMaybe n1) m1
       Assert.equal (Nullable.toMaybe n2) m2
 
-  suite "Isomorphic to Data.Maybe" do
-    test "nullable ~> maybe" do
-      -- TODO:
-      Assert.equal 1 1
-
-  suite "Class implementations" do
-    test "Functor laws" do
-      -- TODO:
-      Assert.equal 1 1
-
-  -- TODO:
+    -- TODO:

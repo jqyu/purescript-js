@@ -18,7 +18,7 @@ import Control.Apply (class Apply, (<*>))
 import Control.Bind (class Bind)
 import Control.Extend (class Extend)
 import Control.Monad (class Monad)
-import Control.MonadZero (class MonadZero)
+import Control.MonadPlus (class MonadZero, class MonadPlus)
 import Control.Plus (class Plus)
 
 import Data.Bounded (class Bounded, top)
@@ -111,6 +111,7 @@ instance bindNullable :: Bind Nullable where
 
 instance monadNullable :: Monad Nullable
 
+instance monadPlusNullable :: MonadPlus Nullable
 instance monadZeroNullable :: MonadZero Nullable
 
 -- | Extend (<<=)
