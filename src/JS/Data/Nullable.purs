@@ -23,7 +23,6 @@ import Control.Plus (class Plus)
 
 import Data.Bounded (class Bounded, top)
 import Data.Eq (class Eq, eq)
-import Data.Function (const, id)
 import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe(Maybe(..), maybe)
@@ -32,7 +31,7 @@ import Data.Ord (class Ord, compare)
 import Data.Ordering (Ordering(..))
 import Data.Semigroup (class Semigroup, append, (<>))
 import Data.Show (class Show, show)
-import Data.Unit (Unit, unit)
+import Data.Unit (Unit)
 
 -- | The `Nullable` type represents a native js value that can possibly be
 -- | null or undefined. This offers a more performant version of `Maybe`,
