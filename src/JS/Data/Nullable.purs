@@ -23,6 +23,7 @@ import Control.Plus (class Plus)
 
 import Data.Bounded (class Bounded, top)
 import Data.Eq (class Eq, eq)
+import Data.Function (id)
 import Data.Functor (class Functor, (<$>))
 import Data.Functor.Invariant (class Invariant, imapF)
 import Data.Maybe(Maybe(..), maybe)
