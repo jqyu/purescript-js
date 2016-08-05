@@ -1,5 +1,5 @@
 module JS.Control.Promise.Env
-  ( PromiseEnv
+  ( PromiseEnv(..)
   , lift
   , resolve
   , reject
